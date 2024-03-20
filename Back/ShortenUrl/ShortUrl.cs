@@ -19,15 +19,8 @@ public class ShortUrl
 
     public void GenerateHash()
     {
-        var hash = $"{Guid.NewGuid().ToString()[..7]}";
-
-        var rand = new Random();
-        int index = rand.Next(hash.Length);
-        var first = hash[index];
-
-        char[] chars = hash.ToCharArray();
-        chars[index] = first;
-        Hash = new string(chars);
+        var bytes = Guid.NewGuid().ToByteArray();
+        Hash = bytes.ToBase62()[..7];
     }
 
     public UrlOut ToOut()

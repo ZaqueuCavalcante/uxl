@@ -30,6 +30,12 @@ public class UxlDbContext(DatabaseSettings settings) : DbContext
         Database.EnsureCreated();
     }
 
+    public async Task ResetDbAsync()
+    {
+        await Database.EnsureDeletedAsync();
+        await Database.EnsureCreatedAsync();
+    }
+
     public void MigrateDb()
     {
         Database.Migrate();
