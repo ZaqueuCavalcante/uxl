@@ -8,6 +8,9 @@ public class RedirectController(RedirectService service) : ControllerBase
     {
         var target = await service.GetTarget(hash);
 
+        if (target == "")
+            return NotFound();
+
         return Redirect(target);
     }
 }

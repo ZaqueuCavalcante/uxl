@@ -9,6 +9,10 @@ public class RedirectService(UxlDbContext ctx)
         if (url == null)
             return "";
 
+        url.Clicks++;
+
+        await ctx.SaveChangesAsync();
+
         return url.Target;
     }
 }

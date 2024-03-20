@@ -7,7 +7,20 @@ public class ShortenUrlService(UxlDbContext ctx)
         var url = new ShortUrl(data.Target);
 
         ctx.Add(url);
-        await ctx.SaveChangesAsync();
+
+        var ok = false;
+        while(!ok)
+        {
+            try
+            {
+                await ctx.SaveChangesAsync();
+                ok = true;
+            }
+            catch (Exception)
+            {
+                url.GenerateHash();
+            }
+        }
 
         return url.ToOut();
     }

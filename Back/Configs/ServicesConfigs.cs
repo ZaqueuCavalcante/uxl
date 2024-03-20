@@ -6,5 +6,6 @@ public static class ServicesConfigs
     {
         services.AddScoped<ShortenUrlService>();
         services.AddScoped<RedirectService>();
+        services.AddScoped<GetTopUrlsService>();
     }
 }

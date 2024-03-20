@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "BACK",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "requireExactSource": false,
+            "cwd": "${workspaceFolder}/Back",
+            "program": "${workspaceFolder}/Back/bin/Debug/net8.0/Back.dll",
+        }
+    ]
+}
