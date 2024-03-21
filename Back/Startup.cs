@@ -7,6 +7,8 @@ public class Startup
         services.AddSettingsConfigs();
         services.AddServicesConfigs();
 
+        services.AddRateLimiterConfigs();
+
         services.AddControllers();
         services.AddHttpConfigs();
 
@@ -21,6 +23,8 @@ public class Startup
         app.UseCors();
 
         app.UseRouting();
+
+        app.UseRateLimiter();
 
         app.UseControllers();
     }

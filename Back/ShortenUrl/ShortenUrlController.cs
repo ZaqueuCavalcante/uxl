@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.RateLimiting;
+
 namespace Uxl.Back.ShortenUrl;
 
 [ApiController]
+[EnableRateLimiting("Small")]
 public class ShortenUrlController(ShortenUrlService service) : ControllerBase
 {
     [HttpPost("urls")]
