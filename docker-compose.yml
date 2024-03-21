@@ -1,0 +1,50 @@
+version: '3.5'
+
+services:
+  db:
+    image: 'postgres:latest'
+    container_name: db
+    hostname: db_host
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - uxlnet
+    command: ["postgres","-c","max_connections=1500","-c","max_prepared_transactions=64","-c","log_statement=all"]
+
+  back:
+    container_name: back
+    build:
+      context: .
+      dockerfile: Dockerfile.back
+    depends_on:
+      - db
+    environment:
+      - 'ASPNETCORE_URLS=http://+:80'
+      - 'ASPNETCORE_ENVIRONMENT=Development'
+      - 'Database__ConnectionString=UserID=postgres;Password=postgres;Host=db_host;Port=5432;Database=uxl-db;Pooling=true;'
+    ports:
+      - '5001:80'
+    networks:
+      - uxlnet
+
+  front:
+    container_name: front
+    build:
+      context: .
+      dockerfile: Dockerfile.front
+    depends_on:
+      - back
+    environment:
+      - 'ASPNETCORE_URLS=http://+:80'
+    ports:
+      - '6001:80'
+    networks:
+      - uxlnet
+
+networks:
+  uxlnet:
+    driver: bridge

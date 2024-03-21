@@ -3,7 +3,8 @@ using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var url = builder.Environment.IsDevelopment() ? "http://localhost:5001" : "https://uxl-api.zaqbit.com";
+var url = builder.Environment.IsDevelopment() ?
+    "http://localhost:5001" : "https://uxl-api.zaqbit.com";
 
 builder.Services.AddMudServices();
 
@@ -20,7 +21,7 @@ builder.Services
 var app = builder.Build();
 
 app.UseStaticFiles();
-app.UseAntiforgery();
+app.UseAntiforgery( );
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
