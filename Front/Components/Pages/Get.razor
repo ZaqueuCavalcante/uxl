@@ -1,0 +1,18 @@
+﻿@page "/{Hash}"
+
+@inject HttpClient Http
+@inject NavigationManager Nav
+
+@code
+{
+    [Parameter]
+    public string Hash { get; set; }
+
+    private TargetUrlOut _url = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var url = await Http.GetFromJsonAsync<TargetUrlOut>($"target/{Hash}") ?? new();
+        Nav.NavigateTo(url.Target);
+    }
+}

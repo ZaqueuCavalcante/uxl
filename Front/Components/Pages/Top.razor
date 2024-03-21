@@ -1,0 +1,48 @@
+﻿@page "/top"
+
+<MudPaper Class="pa-4 mb-6">
+    <MudText Align="Align.Center"><strong>TOP URLS</strong></MudText>
+</MudPaper>
+
+<MudStack>
+    @foreach (var url in _urls)
+    {
+        <MudPaper Class="py-2 pl-6 pr-8">
+            <MudStack Row="true">
+                <MudText>
+                    <MudLink Href="@url.Hash" Underline="Underline.Always">/@url.Hash</MudLink>
+                </MudText>
+                <MudSpacer />
+                <MudText>
+                    @url.Clicks clicks
+                </MudText>
+            </MudStack>
+        </MudPaper>
+    }
+</MudStack>
+
+<MudStack AlignItems="AlignItems.Center">
+    <MudButton
+        Href="/"
+        Class="mt-8 py-2 px-4"
+        Color="Color.Primary"
+        Variant="Variant.Filled"
+    >
+        Shorten
+    </MudButton>
+</MudStack>
+
+@inject HttpClient Http
+
+@code
+{
+    private bool _loading;
+    private List<TopUrlOut> _urls = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _loading = true;
+        _urls = await Http.GetFromJsonAsync<List<TopUrlOut>>("/top") ?? [];
+        _loading = false;
+    }
+}

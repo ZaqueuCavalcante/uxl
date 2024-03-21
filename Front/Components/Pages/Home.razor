@@ -1,0 +1,92 @@
+﻿@page "/"
+
+@rendermode InteractiveServer
+
+<MudStack AlignItems="AlignItems.Center">
+    <MudForm @ref="_form">
+        <MudTextField
+            OnlyValidateIfDirty="true"
+            Immediate="true"
+            AutoFocus="true"
+            Variant="Variant.Outlined"
+            Class="mb-2"
+            @bind-Value="@_target"
+            T="String"
+            Placeholder="Long url"
+            Required="true"
+            RequiredError="Fill!"
+        />
+    </MudForm>
+
+    <MudButton
+        Class="mb-5 py-2 px-4"
+        OnClick="@Submit"
+        Color="Color.Primary"
+        Variant="Variant.Filled"
+    >
+        Shorten
+    </MudButton>
+
+    @if (_hash != "")
+    {
+        <MudPaper Class="py-2 px-12">
+            <MudStack Row="true">
+                <MudText>
+                    <MudLink Href="@_hash" Underline="Underline.Always">/@_hash</MudLink>
+                </MudText>
+            </MudStack>
+        </MudPaper>
+    }
+
+    <MudButton
+        Href="/top"
+        Class="mt-8 py-2 px-4"
+        Color="Color.Info"
+        Variant="Variant.Filled"
+    >
+        Top urls
+    </MudButton>
+
+</MudStack>
+
+@inject HttpClient Http
+
+@code
+{
+    public MudForm _form;
+    public bool _loading;
+
+    public string _target;
+    public string _hash = "";
+
+    public async Task Submit()
+    {
+        Console.WriteLine("SUBMIT");
+
+        if (_loading) return;
+
+        await _form.Validate();
+        if (!_form.IsValid) return;
+
+        if (!_target.StartsWith("https://"))
+        {
+            await _form.ResetAsync();
+            _target = "";
+            StateHasChanged();
+            return;
+        }
+
+        _loading = true;
+        var data = new ShortenUrlIn { Target = _target };
+        var response = await Http.PostAsJsonAsync("/urls", data);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var responseAsString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<UrlOut>(responseAsString)!;
+            _hash = result.Hash;
+        }
+
+        _loading = false;
+    }
+}
