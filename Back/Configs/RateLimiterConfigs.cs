@@ -13,7 +13,7 @@ public static class RateLimiterConfigs
 
             if (Env.IsTesting() || Env.IsDevelopment())
             {
-                options.AddFixedWindowLimiter("Small", o => { o.PermitLimit = 1000; o.Window = TimeSpan.FromHours(1); });
+                options.AddFixedWindowLimiter("Small", o => { o.PermitLimit = 10_000; o.Window = TimeSpan.FromHours(1); });
                 return;
             }
 
