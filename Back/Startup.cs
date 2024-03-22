@@ -16,10 +16,8 @@ public class Startup
         services.AddCorsConfigs();
     }
 
-    public static void Configure(IApplicationBuilder app, UxlDbContext ctx)
+    public static void Configure(IApplicationBuilder app)
     {
-        ctx.ResetDb();
-
         app.UseCors();
 
         app.UseRouting();
