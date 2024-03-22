@@ -5,20 +5,19 @@
 <MudStack AlignItems="AlignItems.Center">
     <MudForm @ref="_form">
         <MudTextField
-            OnlyValidateIfDirty="true"
             Immediate="true"
+            Clearable="true"
             AutoFocus="true"
             Variant="Variant.Outlined"
             Class="mb-2"
             @bind-Value="@_target"
             T="String"
             Placeholder="Long url"
-            Required="true"
-            RequiredError="Fill!"
         />
     </MudForm>
 
     <MudButton
+        StartIcon="@Icons.Material.Filled.Compress"
         Class="mb-5 py-2 px-4"
         OnClick="@Submit"
         Color="Color.Primary"
@@ -29,40 +28,48 @@
 
     @if (_hash != "")
     {
-        <MudPaper Class="py-2 px-12">
-            <MudStack Row="true">
+        <MudPaper Class="pl-7 pr-4">
+            <MudStack Row="true" AlignItems="AlignItems.Center">
                 <MudText>
                     <MudLink Href="@_hash" Underline="Underline.Always">/@_hash</MudLink>
                 </MudText>
+                <MudIconButton Icon="@Icons.Material.Filled.ContentCopy" OnClick="@Copy" />
             </MudStack>
         </MudPaper>
     }
 
     <MudButton
+        StartIcon="@Icons.Material.Filled.Star"
         Href="/top"
-        Class="mt-8 py-2 px-4"
+        Class="mt-8 py-2 px-6"
         Color="Color.Info"
         Variant="Variant.Filled"
     >
-        Top urls
+        Urls
     </MudButton>
 
 </MudStack>
 
+@inject IJSRuntime Js
 @inject HttpClient Http
+@inject IWebHostEnvironment Env
 
 @code
 {
-    public MudForm _form;
-    public bool _loading;
+    private MudForm _form;
+    private bool _loading;
 
-    public string _target;
-    public string _hash = "";
+    private string _target = "";
+    private string _hash = "";
 
-    public async Task Submit()
+    private async Task Copy()
     {
-        Console.WriteLine("SUBMIT");
+        var url = Env.IsDevelopment() ? "http://localhost:6001" : "https://uxl.zaqbit.com";
+        await Js.InvokeVoidAsync("navigator.clipboard.writeText", $"{url}/{_hash}");
+    }
 
+    private async Task Submit()
+    {
         if (_loading) return;
 
         await _form.Validate();

@@ -1,5 +1,7 @@
 ﻿@page "/top"
 
+@rendermode InteractiveServer
+
 <MudPaper Class="pa-4 mb-6">
     <MudText Align="Align.Center"><strong>TOP URLS</strong></MudText>
 </MudPaper>
@@ -23,8 +25,9 @@
 
 <MudStack AlignItems="AlignItems.Center">
     <MudButton
-        Href="/"
+        StartIcon="@Icons.Material.Filled.Compress"
         Class="mt-8 py-2 px-4"
+        OnClick="@Click"
         Color="Color.Primary"
         Variant="Variant.Filled"
     >
@@ -33,16 +36,19 @@
 </MudStack>
 
 @inject HttpClient Http
+@inject NavigationManager Nav
 
 @code
 {
-    private bool _loading;
     private List<TopUrlOut> _urls = [];
 
     protected override async Task OnInitializedAsync()
     {
-        _loading = true;
         _urls = await Http.GetFromJsonAsync<List<TopUrlOut>>("/top") ?? [];
-        _loading = false;
+    }
+
+    private void Click()
+    {
+        Nav.NavigateTo("/", forceLoad: true);
     }
 }
