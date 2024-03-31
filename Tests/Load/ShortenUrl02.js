@@ -6,7 +6,7 @@ export const options = {
 };
 
 export default function () {
-    const url = 'http://localhost:5001/api/urls';
+    const url = 'http://localhost:5002/api/urls';
     const payload = JSON.stringify({
         target: 'https://bytebytego.com/courses/system-design-interview/design-a-url-shortener'
     });
