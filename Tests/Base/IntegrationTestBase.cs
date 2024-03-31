@@ -6,6 +6,7 @@ namespace Uxl.Tests.Base;
 public class IntegrationTestBase
 {
     protected BackWebApplicationFactory _factory = null!;
+    protected string _longUrl = "https://bytebytego.com/courses/system-design-interview/design-a-url-shortener";
 
     [OneTimeSetUp]
     public async Task OneTimeSetUp()

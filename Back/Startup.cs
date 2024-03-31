@@ -7,8 +7,6 @@ public class Startup
         services.AddSettingsConfigs();
         services.AddServicesConfigs();
 
-        services.AddRateLimiterConfigs();
-
         services.AddControllers();
         services.AddHttpConfigs();
 
@@ -16,13 +14,13 @@ public class Startup
         services.AddCorsConfigs();
     }
 
-    public static void Configure(IApplicationBuilder app)
+    public static void Configure(IApplicationBuilder app, UxlDbContext ctx)
     {
+        ctx.ResetDb();
+
         app.UseCors();
 
         app.UseRouting();
-
-        app.UseRateLimiter();
 
         app.UseControllers();
     }

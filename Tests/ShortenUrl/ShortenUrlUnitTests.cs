@@ -17,7 +17,6 @@ public class ShortenUrlUnitTests
         url.Id.Should().NotBeEmpty();
         url.Hash.Should().HaveLength(7);
         url.Target.Should().Be(target);
-        url.Clicks.Should().Be(0);
         url.CreatedAt.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(1));
     }
 

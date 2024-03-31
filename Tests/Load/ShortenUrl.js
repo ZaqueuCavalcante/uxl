@@ -1,14 +1,14 @@
 import http from 'k6/http';
 
 export const options = {
-    vus: 10,
+    vus: 100,
     duration: '10s',
 };
 
 export default function () {
-    const url = 'http://localhost:5001/urls';
+    const url = 'http://localhost:5001/api/urls';
     const payload = JSON.stringify({
-        target: 'https://bytebytego.com'
+        target: 'https://bytebytego.com/courses/system-design-interview/design-a-url-shortener'
     });
 
     const params = {

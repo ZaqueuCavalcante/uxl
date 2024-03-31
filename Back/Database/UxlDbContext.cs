@@ -3,6 +3,7 @@ namespace Uxl.Back.Database;
 public class UxlDbContext(DatabaseSettings settings) : DbContext
 {
     public DbSet<ShortUrl> Urls { get; set; }
+    public DbSet<UrlClick> Clicks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

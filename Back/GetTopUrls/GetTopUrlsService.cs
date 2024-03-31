@@ -4,11 +4,16 @@ public class GetTopUrlsService(UxlDbContext ctx)
 {
     public async Task<List<TopUrlOut>> GetTop()
     {
-        var urls = await ctx.Urls
-            .OrderByDescending(x => x.Clicks)
-            .Take(3)
-            .ToListAsync();
+        FormattableString sql = $@"
+            SELECT hash, count(1) AS clicks
+            FROM uxl.url_clicks
+            GROUP BY hash
+            ORDER BY count(1) DESC
+            LIMIT 3
+        ";
 
-        return urls.ConvertAll(x => x.ToTopOut());
+        var urls = await ctx.Database.SqlQuery<TopUrlOut>(sql).ToListAsync();
+
+        return urls.ToList();
     }
 }

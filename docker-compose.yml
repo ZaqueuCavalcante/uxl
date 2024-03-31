@@ -19,7 +19,7 @@ services:
     container_name: back
     build:
       context: .
-      dockerfile: Dockerfile.back
+      dockerfile: Dockerfile
     depends_on:
       - db
     environment:
@@ -28,20 +28,6 @@ services:
       - 'Database__ConnectionString=UserID=postgres;Password=postgres;Host=db_host;Port=5432;Database=uxl-db;Pooling=true;'
     ports:
       - '5001:80'
-    networks:
-      - uxlnet
-
-  front:
-    container_name: front
-    build:
-      context: .
-      dockerfile: Dockerfile.front
-    depends_on:
-      - back
-    environment:
-      - 'ASPNETCORE_URLS=http://+:80'
-    ports:
-      - '6001:80'
     networks:
       - uxlnet
 

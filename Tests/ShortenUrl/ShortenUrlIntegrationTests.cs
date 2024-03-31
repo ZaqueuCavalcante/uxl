@@ -11,10 +11,10 @@ public class ShortenUrlIntegrationTests : IntegrationTestBase
     {
         // Arrange
         var client = _factory.CreateClient();
-        var data = new ShortenUrlIn { Target = "https://bytebytego.com" };
+        var data = new ShortenUrlIn { Target = _longUrl };
 
         // Act
-        var response = await client.PostAsJsonAsync("/urls", data);
+        var response = await client.PostAsJsonAsync("/api/urls", data);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -25,14 +25,14 @@ public class ShortenUrlIntegrationTests : IntegrationTestBase
     {
         // Arrange
         var client = _factory.CreateClient();
-        var data = new ShortenUrlIn { Target = "https://bytebytego.com" };
+        var data = new ShortenUrlIn { Target = _longUrl };
         var hashes = new HashSet<string>();
         const int count = 1_000;
 
         // Act
         for (int i = 0; i < count; i++)
         {
-            var response = await client.PostAsJsonAsync("/urls", data);
+            var response = await client.PostAsJsonAsync("/api/urls", data);
             var url = await response.DeserializeTo<UrlOut>();
             hashes.Add(url.Hash);
         }

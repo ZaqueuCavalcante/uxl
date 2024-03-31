@@ -5,7 +5,6 @@ public class ShortUrl
     public Guid Id { get; set; }
     public string Hash { get; set; }
     public string Target { get; set; }
-    public ulong Clicks { get; set; }
     public DateTime CreatedAt { get; set; }
 
     public ShortUrl(
@@ -36,7 +35,6 @@ public class ShortUrl
         return new TopUrlOut
         {
             Hash = Hash,
-            Clicks = Clicks,
         };
     }
 }

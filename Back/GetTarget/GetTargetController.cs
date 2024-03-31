@@ -3,7 +3,7 @@ namespace Uxl.Back.GetTarget;
 [ApiController]
 public class GetTargetController(GetTargetService service) : ControllerBase
 {
-    [HttpGet("target/{hash}")]
+    [HttpGet("api/urls/{hash}")]
     public async Task<IActionResult> GetTarget([FromRoute] string hash)
     {
         var target = await service.Get(hash);

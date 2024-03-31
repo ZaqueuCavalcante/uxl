@@ -7,7 +7,6 @@ public class ShortUrlConfig : IEntityTypeConfiguration<ShortUrl>
         url.ToTable("urls");
 
         url.HasKey(u => u.Id);
-        url.Property(u => u.Id).ValueGeneratedNever();
 
         url.HasIndex(u => u.Hash).IsUnique();
     }
