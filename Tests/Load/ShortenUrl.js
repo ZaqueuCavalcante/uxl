@@ -2,11 +2,11 @@ import http from 'k6/http';
 
 export const options = {
     vus: 100,
-    duration: '10s',
+    duration: '100s',
 };
 
 export default function () {
-    const url = 'http://localhost:5001/api/urls';
+    const url = 'http://localhost:9999/api/urls';
     const payload = JSON.stringify({
         target: 'https://bytebytego.com/courses/system-design-interview/design-a-url-shortener'
     });

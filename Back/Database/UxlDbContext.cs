@@ -15,14 +15,7 @@ public class UxlDbContext(DatabaseSettings settings) : DbContext
     {
         base.OnModelCreating(builder);
 
-        builder.HasDefaultSchema("uxl");
-
         builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-    }
-
-    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
-    {
-        configurationBuilder.Properties<Enum>().HaveConversion<string>();
     }
 
     public void ResetDb()
@@ -35,10 +28,5 @@ public class UxlDbContext(DatabaseSettings settings) : DbContext
     {
         await Database.EnsureDeletedAsync();
         await Database.EnsureCreatedAsync();
-    }
-
-    public void MigrateDb()
-    {
-        Database.Migrate();
     }
 }

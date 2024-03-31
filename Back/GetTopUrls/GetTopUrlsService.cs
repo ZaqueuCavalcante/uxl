@@ -6,7 +6,7 @@ public class GetTopUrlsService(UxlDbContext ctx)
     {
         FormattableString sql = $@"
             SELECT hash, count(1) AS clicks
-            FROM uxl.url_clicks
+            FROM url_clicks
             GROUP BY hash
             ORDER BY count(1) DESC
             LIMIT 3
