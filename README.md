@@ -2,6 +2,8 @@
 
 Desenhe um Encurtador de URL
 
+<img src="./uxl.gif" width="600" style="border-radius: 6px">
+
 ## 1 - Entendendo o problema e o escopo
 
 - Dado uma URL qualquer, o sistema deve retornar uma versão curta dela
