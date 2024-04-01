@@ -1,4 +1,4 @@
-namespace Uxl.Shared.ShortenUrl;
+namespace Uxl.Back.ShortenUrl;
 
 public class ShortenUrlIn
 {

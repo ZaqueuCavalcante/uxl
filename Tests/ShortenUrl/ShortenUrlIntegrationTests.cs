@@ -1,6 +1,6 @@
 using System.Net;
+using Uxl.Back.ShortenUrl;
 using System.Net.Http.Json;
-using Uxl.Shared.ShortenUrl;
 
 namespace Uxl.Tests.ShortenUrl;
 

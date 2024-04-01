@@ -1,5 +1,3 @@
-using Uxl.Shared.GetTargetUrl;
-
 namespace Uxl.Back.GetTarget;
 
 public class GetTargetService(UxlDbContext ctx)

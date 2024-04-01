@@ -5,8 +5,6 @@ global using Uxl.Back.GetTarget;
 global using Uxl.Back.Extensions;
 global using Uxl.Back.ShortenUrl;
 global using Uxl.Back.GetTopUrls;
-global using Uxl.Shared.ShortenUrl;
-global using Uxl.Shared.GetTopUrls;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;

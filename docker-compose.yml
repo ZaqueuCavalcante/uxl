@@ -17,8 +17,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "2.00"
-          memory: "300MB"
+          cpus: "1.00"
+          memory: "200MB"
 
   back01: &back
     build:
@@ -36,8 +36,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1.00"
-          memory: "200MB"
+          cpus: "0.75"
+          memory: "150MB"
 
   back02:
     <<: *back
@@ -53,22 +53,36 @@ services:
     ports:
       - "5003:80"
 
-  nginx:
-    image: nginx:latest
-    container_name: uxl-nginx
+  back04:
+    <<: *back
+    hostname: back04
+    container_name: uxl-back04
+    ports:
+      - "5004:80"
+
+  back05:
+    <<: *back
+    hostname: back05
+    container_name: uxl-back05
+    ports:
+      - "5005:80"
+
+  haproxy:
+    image: haproxy:2.9-alpine
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
     depends_on:
       - back01
       - back02
       - back03
     ports:
       - "9999:9999"
+    restart: unless-stopped
     deploy:
       resources:
         limits:
-          cpus: "0.50"
-          memory: "100MB"
+          cpus: "0.25"
+          memory: "75MB"
 
 networks:
   default:

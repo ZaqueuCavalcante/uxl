@@ -1,4 +1,4 @@
-namespace Uxl.Shared.GetTopUrls;
+namespace Uxl.Back.GetTopUrls;
 
 public class TopUrlOut
 {
