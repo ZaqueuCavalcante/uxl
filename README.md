@@ -1,8 +1,6 @@
 # UXL
 
-Design A URL Shortener
-
-Um questão clássica em entrevistas de System Design.
+Desenhe um Encurtador de URL
 
 ## 1 - Entendendo o problema e o escopo
 
